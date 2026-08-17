@@ -1,0 +1,13 @@
+Said Assistant 3.0 — FINAL V26 COMPLETE
+
+This is one complete package based on V24/V25, with MOBILE_PUBLISH included.
+
+V26 final fixes:
+- Complete Swedish/English UI switching, including dynamic controls, placeholders, options and status text.
+- English/Swedish speech recognition and speech synthesis follow the selected language.
+- Document editor: import text PDFs, scanned PDFs (OCR fallback), DOCX and text formats; edit; undo; save locally; create a new PDF.
+- CV editor: import PDF/DOCX/text, edit, save changes locally, undo, create a new PDF.
+- Image workspace: multiple images, OCR, combined extracted text and combined question workflow.
+- Image analysis never pretends OCR is visual object recognition; visual identification of an arbitrary car/model still requires a vision model, which this free local build does not include.
+- Service-worker cache bumped to V26 and includes all MOBILE_PUBLISH files.
+- Existing features/files are retained; V26 scripts are the active final implementations.

@@ -1,0 +1,2 @@
+/* Full UI language marker used by final build. */
+(function(){const K='saidAssistantLanguageV22';function get(){return localStorage.getItem(K)==='en'?'en':'sv'}function set(v){localStorage.setItem(K,v==='en'?'en':'sv');document.documentElement.lang=get();return get()}window.SaidLanguagePlus={get,set};})();
