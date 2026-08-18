@@ -1,0 +1,2 @@
+/* Final answer safety: do not invent certainty when sources conflict or are absent. */
+(function(){function clean(text){return String(text||'').replace(/https?:\/\/\S+/gi,'').replace(/\bURL Source\b:?/gi,'').replace(/Markdown Content\s*:/gi,'').replace(/\s+/g,' ').trim()}function enough(rows){return Array.isArray(rows)&&rows.filter(x=>x&&x.text&&String(x.text).length>35).length>=1}window.SaidSafetyPlus={clean,enough};})();

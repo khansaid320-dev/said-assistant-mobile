@@ -1,0 +1,2 @@
+/* Free local calculations without web search. */
+(function(){function calc(expr){let e=String(expr||'').replace(/,/g,'.').replace(/[^0-9+\-*/().% ]/g,'');if(!e)return null;try{if(/[^0-9+\-*/().% ]/.test(e))return null;const v=Function('"use strict";return ('+e+')')();return Number.isFinite(v)?v:null}catch{return null}}window.SaidCalculator={calc};})();

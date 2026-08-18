@@ -1,0 +1,2 @@
+/* Explicit memory confirmations and recall helpers. */
+(function(){const K='saidAssistantMemoryV22';const get=()=>{try{return JSON.parse(localStorage.getItem(K)||'[]')}catch{return[]}};function save(text){const a=get().filter(x=>x.text!==text);a.push({text:String(text),savedAt:Date.now()});try{localStorage.setItem(K,JSON.stringify(a.slice(-100)))}catch{}return true}function list(){return get()}window.SaidMemoryPlus={save,list};})();

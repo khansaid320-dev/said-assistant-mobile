@@ -1,0 +1,2 @@
+/* Travel/time planning helpers. */
+(function(){function toMin(t){const m=String(t||'').match(/(\d{1,2})(?::(\d{2}))?/);return m?Math.min(1439,+m[1]*60+(+(m[2]||0))):null}function fmt(m){m=(m+1440)%1440;return String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0')}function departure(flightMinutes,travelMinutes,buffer=180){const x=toMin(flightMinutes);if(x==null)return null;return fmt(x-buffer-travelMinutes)}window.SaidTimePlanner={toMin,fmt,departure};})();
