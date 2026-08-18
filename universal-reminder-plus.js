@@ -1,2 +1,0 @@
-/* Local reminder planner; browser notifications still require permission. */
-(function(){const K='saidAssistantRemindersV22';const get=()=>{try{return JSON.parse(localStorage.getItem(K)||'[]')}catch{return[]}};function add(text,at){const a=get();const r={id:Date.now(),text:String(text),at:at||'',done:false};a.push(r);localStorage.setItem(K,JSON.stringify(a));return r}function list(){return get().filter(x=>!x.done)}window.SaidReminderPlus={add,list};})();
