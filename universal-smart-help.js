@@ -1,2 +1,0 @@
-/* Capability registry for the final universal assistant. */
-(function(){window.SaidSmartCapabilities={items:['multi-source web research','conversation context','travel planning','memory','reminders','calculator','weather','news','documents','images','CV','jobs','government information','transport information','app opening','Swedish/English','source ranking','concise answer formatting']};})();
