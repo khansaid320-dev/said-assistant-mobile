@@ -1,0 +1,60 @@
+:root{color-scheme:dark;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;background:#07101d;color:#f4f7fb;--card:#101c2f;--line:#263958;--blue:#2588f7;--green:#7ee9ba;--muted:#9eacc2;--warn:#ffd166;--danger:#ff7777}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:linear-gradient(180deg,#07101d,#0a1424 45%,#07101d);min-height:100vh}button,input,textarea{font:inherit}button{border:0;border-radius:15px;padding:12px 15px;color:#fff;background:#16263e;border:1px solid #32486b;cursor:pointer;touch-action:manipulation}button:active{transform:scale(.98)}button:disabled{opacity:.45;cursor:default}.primary{background:var(--blue);border-color:#4aa4ff;font-weight:700}.secondary{background:#16263e}.small{padding:9px 11px;font-size:13px}.tiny{padding:7px 10px;font-size:12px}
+.app{width:min(980px,100%);margin:auto;padding:10px 14px 50px}.hero,.card{background:rgba(16,28,47,.97);border:1px solid var(--line);border-radius:22px;box-shadow:0 12px 36px #0003}.hero{padding:18px;margin-bottom:12px;display:flex;justify-content:space-between;gap:15px}.eyebrow{color:#7fb9ff;font-size:12px;font-weight:800;letter-spacing:.12em}.hero h1{font-size:27px;margin:5px 0 7px}.hero p{margin:0;color:#aab8cc}.status{white-space:nowrap;background:#103b2c;color:var(--green);padding:9px 12px;border-radius:999px;font-weight:700;height:max-content}
+.card{padding:16px;margin:12px 0}.chat-card{border-color:#2f5f89}.chat-head,.section-title{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}.chat-head h2,.section-title h2{margin:0 0 5px}h2{margin:0 0 7px;font-size:20px}.muted{color:var(--muted);line-height:1.5}.conversation{display:flex;flex-direction:column;gap:9px;max-height:520px;overflow:auto;margin-top:12px;padding-right:2px}.bubble{padding:13px 15px;border-radius:17px;line-height:1.5;white-space:pre-wrap;overflow-wrap:anywhere}.bubble.assistant{background:#17253c;border:1px solid #2a4165}.bubble.user{background:#1668bd;margin-left:auto;max-width:92%}.composer{margin-top:12px}.composer textarea,.grid input,.card textarea{width:100%;background:#0b1627;border:1px solid #304765;border-radius:15px;color:#fff;padding:13px;outline:none}.composer textarea:focus,.grid input:focus,.card textarea:focus{border-color:#45a5ff}.buttons,.chips,.read-controls{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}.sticky-buttons{position:sticky;bottom:8px;z-index:10;background:#07101df2;padding-top:7px}.read-controls{align-items:center}.read-controls .muted{font-size:12px}
+.quick-card{border-color:#2f5f89}.chips button{font-size:14px}.task-card{background:linear-gradient(135deg,#101c2f,#0d192a)}.jobs-card{border-color:#2d587f}.job-results{display:grid;gap:10px;margin-top:12px}.job-card{background:#0d192a;border:1px solid #2b405f;border-radius:17px;padding:14px}.job-card.best{border-color:#4aa4ff;box-shadow:0 0 0 1px #2588f744}.job-title{font-weight:800;font-size:17px}.job-company{margin-top:4px;color:#d9e2ef}.job-meta{margin-top:7px;color:#9eacc2;font-size:13px;line-height:1.5}.match{display:inline-block;margin-top:9px;padding:5px 9px;border-radius:999px;background:#103b2c;color:#7ee9ba;font-size:12px;font-weight:700}.job-actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:11px}.job-actions button{font-size:12px;padding:8px 10px}.job-actions .apply{background:#2588f7;border-color:#4aa4ff;font-weight:700}.result{margin-top:12px;padding:13px;border-radius:15px;background:#0d192a;border:1px solid #2b405f;line-height:1.5;white-space:pre-wrap;min-height:0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0}.grid label{color:#b5c2d5;font-size:13px}.grid input{margin-top:5px}.card input[type=file]{width:100%;padding:10px 0;color:#b9c6d8}.card textarea{margin-top:10px;resize:vertical;min-height:120px}.profile-card{border-color:#344a6b}footer{text-align:center;color:#72829a;font-size:13px;padding:15px}
+@media(max-width:650px){.app{padding:8px 10px 35px}.hero{display:block}.status{display:inline-block;margin-top:12px}.hero h1{font-size:24px}.grid{grid-template-columns:1fr}.card{border-radius:19px;padding:14px}.chat-head,.section-title{align-items:center}.conversation{max-height:55vh}.bubble.user{max-width:96%}.sticky-buttons button{flex:1 1 30%}.job-actions button{flex:1 1 42%}}
+
+.main-nav{position:sticky;top:0;z-index:30;display:grid;grid-template-columns:repeat(6,1fr);gap:7px;margin:8px 0 12px;padding:6px;background:#07101df2;backdrop-filter:blur(10px);border:1px solid #263958;border-radius:17px}
+.main-nav a{display:block;text-align:center;text-decoration:none;color:#eef5ff;background:#16263e;border:1px solid #32486b;border-radius:12px;padding:10px 7px;font-size:13px;font-weight:700}
+.main-nav a:active,.main-nav a:hover{background:#2588f7}
+.job-search-panel{background:#0b1627;border:1px solid #2b405f;border-radius:17px;padding:13px;margin:10px 0}
+.job-search-panel label{display:block;color:#b5c2d5;font-size:13px;font-weight:600}
+.job-search-panel input,.job-search-panel select{width:100%;margin-top:6px;background:#101e32;border:1px solid #304765;border-radius:13px;color:#fff;padding:12px;outline:none}
+.filter-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:10px}
+.search-buttons button{flex:1 1 30%}
+#jobSearchStatus{margin-top:8px}
+.job-card .job-title{line-height:1.3}
+.job-card .why{margin-top:7px;color:#b8c6d9;font-size:12px}
+.selected-job{border-color:#7ee9ba!important;box-shadow:0 0 0 1px #7ee9ba55}
+@media(max-width:650px){.main-nav{grid-template-columns:repeat(3,1fr)}.main-nav a{font-size:12px;padding:9px 5px}.filter-grid{grid-template-columns:1fr}.search-buttons button{flex:1 1 100%}}
+
+.subheading{margin:0 0 7px;font-size:16px}.job-search-panel strong{color:#fff}.manual-search{border-color:#36547a}.direct-search-links{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}.selected-job-box{border-color:#4d7197}.selected-job-box strong{color:#7ee9ba}.profile-name-box{display:flex;flex-direction:column;gap:4px;background:#0b1627;border:1px solid #304765;border-radius:15px;padding:12px;margin:10px 0}.profile-name-box strong{font-size:12px;color:#9eacc2;text-transform:uppercase;letter-spacing:.05em}.profile-name-box span{font-size:20px;font-weight:800;color:#fff}.job-search-panel h3{color:#fff}.job-search-panel p{margin:6px 0}.job-meta{overflow-wrap:anywhere}@media(max-width:650px){.direct-search-links button{flex:1 1 30%}.profile-name-box span{font-size:18px}}
+
+/* FINAL V13 COMPLETE */
+.main-nav{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;position:sticky;top:0;z-index:30;background:#07101df2;padding:8px 0;margin:0 0 10px;backdrop-filter:blur(10px)}
+.main-nav a{display:flex;align-items:center;justify-content:center;min-height:48px;text-decoration:none;color:#f4f7fb;background:#16263e;border:1px solid #32486b;border-radius:15px;padding:8px;font-weight:700;text-align:center}
+.job-search-panel{background:#0d192a;border:1px solid #2b405f;border-radius:17px;padding:13px;margin-top:10px}
+.search-presets{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0}.search-presets .job-preset{font-size:12px}
+.filter-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0}
+.filter-grid label{color:#b5c2d5;font-size:13px}
+.filter-grid input,.filter-grid select{width:100%;margin-top:5px;background:#0b1627;border:1px solid #304765;border-radius:15px;color:#fff;padding:13px;outline:none}
+.profile-summary{display:grid;grid-template-columns:1fr;gap:8px;margin:10px 0}
+.profile-summary>div{display:flex;justify-content:space-between;gap:12px;padding:10px 12px;border-radius:13px;background:#0b1627;border:1px solid #263d5d}
+.profile-summary strong{color:#aebbd0}.profile-summary span{font-weight:700;text-align:right}
+.job-card .why{margin-top:7px;color:#7f91aa;font-size:12px;line-height:1.45}
+@media(max-width:650px){.main-nav{grid-template-columns:repeat(2,minmax(0,1fr))}.filter-grid{grid-template-columns:1fr}.profile-summary>div{display:block}.profile-summary span{display:block;text-align:left;margin-top:4px}}
+
+.compact-controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.compact-controls .tiny{min-width:110px}
+
+/* FINAL UX FIX – navigation never covers page content while scrolling. */
+html{scroll-padding-top:12px}
+.main-nav{position:relative;top:auto;z-index:2;display:flex;gap:8px;overflow-x:auto;overflow-y:hidden;padding:8px;margin:8px 0 12px;background:#07101df2;backdrop-filter:blur(10px);scrollbar-width:thin}
+.main-nav a{flex:0 0 auto;min-width:118px;min-height:46px;white-space:nowrap}
+.main-nav a:focus-visible{outline:2px solid #45a5ff;outline-offset:2px}
+@media(max-width:650px){.main-nav{display:flex;grid-template-columns:none}.main-nav a{min-width:112px;font-size:12px;padding:8px 10px}.sticky-buttons{position:relative;bottom:auto;z-index:2;background:transparent;padding-top:0}}
+
+/* FINAL CHAT HISTORY – conversations persist until the user deletes them. */
+.chat-actions{display:flex;gap:8px;flex-wrap:wrap}
+.chat-history-panel{margin:10px 0;padding:12px;background:#0b1627;border:1px solid #304765;border-radius:15px}
+.chat-history-head{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:8px}
+.chat-history-list{display:flex;flex-direction:column;gap:7px;max-height:280px;overflow:auto}
+.chat-history-item{display:flex;align-items:center;gap:7px;padding:8px;background:#101f34;border:1px solid #263d5d;border-radius:12px}
+.chat-history-open{flex:1;min-width:0;text-align:left;background:transparent;border:0;color:#fff;padding:7px;cursor:pointer}
+.chat-history-title{display:block;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chat-history-date{display:block;color:#8fa0b8;font-size:11px;margin-top:3px}
+.chat-history-delete{border:1px solid #5b3340;background:#281622;color:#ffd7df;border-radius:10px;padding:7px 9px;cursor:pointer}
+
+.pending-answer{opacity:.82;font-style:italic}
+
+.language-control{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700}.language-control select{border-radius:10px;padding:6px 8px}.app-launcher button{min-width:110px}
