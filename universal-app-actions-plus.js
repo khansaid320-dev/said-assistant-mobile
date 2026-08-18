@@ -1,2 +1,0 @@
-/* Safe iOS/web app opening helpers. */
-(function(){const map={whatsapp:'https://wa.me/',youtube:'https://www.youtube.com/',tiktok:'https://www.tiktok.com/',gmail:'https://mail.google.com/',outlook:'https://outlook.live.com/',instagram:'https://www.instagram.com/',facebook:'https://www.facebook.com/',maps:'https://maps.google.com/'};function open(name){const k=String(name||'').toLowerCase();const key=Object.keys(map).find(x=>k.includes(x));if(!key)return false;window.location.href=map[key];return true}window.SaidAppActionsPlus={open,map};})();
