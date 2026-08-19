@@ -10,33 +10,15 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon.svg">
 <link rel="apple-touch-icon" href="icon-180.png">
-<link rel="stylesheet" href="app.css">
+<link rel="stylesheet" href="app.css?v=27.3.0">
 <title>Said Assistant 3.0 – Mobil</title>
 <script>
-/* GitHub Pages hardening: remove stale service workers/caches from older mobile builds. */
-(function () {
-  try {
-    if (!('serviceWorker' in navigator)) return;
-    var key = 'said-assistant-pages-clean-v27';
-    var done = sessionStorage.getItem(key);
-    if (done && location.search.indexOf('_fresh=') !== -1) history.replaceState(null, '', location.pathname + location.hash);
-    navigator.serviceWorker.getRegistrations().then(function (regs) {
-      return Promise.all(regs.map(function (r) { return r.unregister(); }));
-    }).then(function () {
-      if (!('caches' in window)) return;
-      return caches.keys().then(function (keys) {
-        return Promise.all(keys.map(function (k) { return caches.delete(k); }));
-      });
-    }).then(function () {
-      if (!done) {
-        sessionStorage.setItem(key, '1');
-        var u = new URL(location.href);
-        u.searchParams.set('_fresh', String(Date.now()));
-        location.replace(u.href);
-      }
-    }).catch(function () {});
-  } catch (e) {}
-})();
+/* V27.2 GitHub Pages cache cleanup: old service workers must not control this build. */
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.getRegistrations()
+    .then(registrations => Promise.all(registrations.map(r => r.unregister())))
+    .catch(() => {});
+}
 </script>
 </head>
 <body>
@@ -47,7 +29,7 @@
     <h1>Din smarta mobilassistent</h1>
     <p>Fristående · fungerar utan dator · samtal · CV · jobb · brev · dokument</p>
   </div>
-  <span id="online" class="status">● Fristående</span>
+  <span id="online" class="status" aria-live="polite">● Startar…</span>
   <label id="languageLabel" class="language-control" data-lang-title="language">Språk<select id="languageSelect" aria-label="Språk"><option value="sv" data-lang-sv>Svenska</option><option value="en" data-lang-en>English</option></select></label>
 </header>
 <nav class="main-nav" aria-label="Huvudmeny">
@@ -185,16 +167,16 @@
   <h2>👤 Min profil</h2>
   <p class="muted">Här sparar du dina riktiga personuppgifter som assistenten använder när CV, brev och ansökan förbereds.</p>
   <div class="profile-name-box profile-summary">
-    <div><strong>Fullständigt namn</strong><span id="profileFullNamePreview">Saidkhan Safizadah</span></div>
-    <div><strong>Personnummer</strong><span id="profilePersonalNumberPreview">20031114-2434</span></div>
+    <div><strong>Fullständigt namn</strong><span id="profileFullNamePreview">Ditt namn</span></div>
+    <div><strong>Personnummer</strong><span id="profilePersonalNumberPreview"></span></div>
     <div><strong>Födelsedatum</strong><span id="profileBirthPreview">14 nov. 2003</span></div>
   </div>
   <div class="grid">
-    <label>Förnamn<input id="profileName" autocomplete="given-name" placeholder="Saidkhan"></label>
-    <label>Efternamn<input id="profileSurname" autocomplete="family-name" placeholder="Safizadah"></label>
+    <label>Förnamn<input id="profileName" autocomplete="given-name" placeholder="Förnamn"></label>
+    <label>Efternamn<input id="profileSurname" autocomplete="family-name" placeholder="Efternamn"></label>
     <label>Personnummer<input id="profilePersonalNumber" inputmode="numeric" autocomplete="off" placeholder="YYYYMMDD-XXXX"></label>
     <label>Födelsedatum<input id="birthDate" type="date"></label>
-    <label>Ort<input id="profileLocation" autocomplete="address-level2" placeholder="Upplands Väsby"></label>
+    <label>Ort<input id="profileLocation" autocomplete="address-level2" placeholder="Din ort"></label>
     <label>Adress<input id="profileAddress" autocomplete="street-address" placeholder="Din adress"></label>
     <label>Önskad jobbtitel<input id="profileJob" placeholder="lagerarbetare, butik, elektriker…"></label>
   </div>
@@ -259,9 +241,45 @@
 </section>
 
 <footer>
-  <p>Said Assistant 3.0 Mobile V27 · Fristående klient · gratis · inga betalda AI-tjänster eller API-nycklar.</p>
+  <p>Said Assistant 3.0 Mobile V27.3 · Fristående klient · gratis · inga betalda AI-tjänster eller API-nycklar.</p>
 </footer>
 </main>
-<script src="app.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="./said-assistant-mobile-v27.3.js?v=27.3.0"></script>
 </body>
 </html>
