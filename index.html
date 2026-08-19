@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b1220">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Said Assistant">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="stylesheet" href="app.css">
+<title>Said Assistant 3.0 – Mobil</title>
+<script>
+window.__saidBootErrors=[];
+window.addEventListener('error',function(e){window.__saidBootErrors.push(String(e.message||'JavaScript error'));},true);
+window.addEventListener('unhandledrejection',function(e){window.__saidBootErrors.push(String(e.reason&&e.reason.message||e.reason||'Promise error'));},true);
+</script>
+<script>
+/* GitHub Pages startup hardening — V27.1: clear stale SW/cache once, never loop. */
+(function(){
+  try {
+    var marker='said-assistant-v27-1-cleaned';
+    var already=localStorage.getItem(marker)==='1';
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(function(regs){
+        return Promise.all(regs.map(function(r){return r.unregister();}));
+      }).then(function(){
+        if (!('caches' in window)) return;
+        return caches.keys().then(function(keys){
+          return Promise.all(keys.map(function(k){return caches.delete(k);}));
+        });
+      }).then(function(){
+        if(!already){try{localStorage.setItem(marker,'1');}catch(e){}}
+      }).catch(function(){});
+    }
+  } catch(e) {}
+})();
+</script>
+</head>
+<body>
+<main class="app">
+<header class="hero" id="top">
+  <div>
+    <div class="eyebrow">🤖 SAID ASSISTANT 3.0</div>
+    <h1>Din smarta mobilassistent</h1>
+    <p>Fristående · fungerar utan dator · samtal · CV · jobb · brev · dokument</p>
+  </div>
+  <span id="online" class="status">● Fristående</span>
+  <label id="languageLabel" class="language-control" data-lang-title="language">Språk<select id="languageSelect" aria-label="Språk"><option value="sv" data-lang-sv>Svenska</option><option value="en" data-lang-en>English</option></select></label>
+</header>
+<nav class="main-nav" aria-label="Huvudmeny">
+  <a href="#assistant">💬 Assistent</a>
+  <a href="#jobs">💼 Jobb</a>
+  <a href="#cv">📄 CV</a>
+  <a href="#letter">✉️ Brev</a>
+  <a href="#documents">📁 Dokument</a>
+  <a href="#images">🖼️ Bild</a>
+  <a href="#profile">👤 Profil</a>
+</nav>
+
+<section class="card chat-card" id="assistant">
+  <div class="chat-head">
+    <div>
+      <h2>💬 Assistent</h2>
+      <p class="muted">Skriv eller prata direkt med assistenten. Du behöver inte lämna sidan för att söka jobb, välja jobb eller förbereda CV och personligt brev.</p>
+    </div>
+    <div class="chat-actions">
+      <button id="newChat" class="small secondary">＋ Ny chatt</button>
+      <button id="toggleChats" class="small secondary">🗂 Mina chattar</button>
+    </div>
+  </div>
+  <div id="chatHistoryPanel" class="chat-history-panel" hidden>
+    <div class="chat-history-head"><strong>🗂 Mina chattar</strong><span class="muted">Sparas automatiskt</span></div>
+    <div id="chatHistoryList" class="chat-history-list"></div>
+  </div>
+  <div id="conversation" class="conversation">
+    <div class="bubble assistant">Hej Said! 👋 Jag är redo. Du kan skriva eller prata med mig. Säg till exempel: <strong>”Sök jobb enligt mitt CV i Stockholm.”</strong></div>
+  </div>
+  <div class="composer">
+    <textarea id="command" rows="3" placeholder="Skriv eller säg vad du vill…"></textarea>
+    <div class="buttons sticky-buttons">
+      <button id="mic" class="secondary">🎤 Prata</button>
+      <button id="attachChat" class="secondary">📎 Bild/fil</button>
+      <button id="send" class="primary">Skicka</button>
+    </div>
+    <input id="chatFile" type="file" accept="image/*,.txt,.md,.csv,.json,.html,.htm,.xml,.rtf,.pdf" hidden>
+    <div id="chatAttachmentStatus" class="muted small-help">Du kan bifoga en bild eller fil direkt i chatten.</div>
+    <div class="read-controls compact-controls" aria-label="Kontroller för assistentens uppläsning">
+      <button id="readLast" class="tiny secondary">🔊 Läs svar</button>
+      <button id="pauseAll" class="tiny secondary">⏸ Pausa</button>
+      <button id="resumeAll" class="tiny secondary">▶️ Fortsätt</button>
+      <span id="readStatus" class="muted">Klar</span><span id="answerStatus" class="muted" style="margin-left:10px">Klar</span>
+    </div>
+  </div>
+</section>
+
+<section class="card quick-card">
+  <h2>⚡ Snabbkommandon</h2>
+  <div class="chips">
+    <button data-q="Sök jobb enligt mitt CV">💼 Sök jobb enligt CV</button>
+    <button data-q="Visa fler jobb">➕ Fler jobb</button>
+    <button data-q="Förbered ansökan till det valda jobbet">📋 Förbered ansökan</button>
+    <button data-q="Anpassa mitt CV till det valda jobbet">📄 Anpassa CV</button>
+    <button data-q="Skriv ett personligt brev till det valda jobbet">✉️ Skriv brev</button>
+    <button data-q="Vad är klockan?">🕐 Klockan</button>
+  </div>
+</section>
+
+<section class="card" id="apps">
+  <h2 id="appsTitle">📱 Appar</h2>
+  <p class="muted">Säg eller skriv till exempel: ”Öppna WhatsApp”. På iPhone försöker assistenten öppna appen direkt.</p>
+  <div class="chips app-launcher">
+    <button data-open-app="whatsapp">WhatsApp</button>
+    <button data-open-app="tiktok">TikTok</button>
+    <button data-open-app="youtube">YouTube</button>
+    <button data-open-app="instagram">Instagram</button>
+    <button data-open-app="messenger">Messenger</button>
+    <button data-open-app="maps">Kartor</button>
+    <button data-open-app="mail">Mail</button>
+  </div>
+</section>
+
+<section class="card task-card">
+  <div class="section-title">
+    <div>
+      <h2>🧠 Pågående uppgift</h2>
+      <p id="taskStatus" class="muted">Ingen uppgift just nu.</p>
+    </div>
+  </div>
+</section>
+
+<section class="card jobs-card" id="jobs">
+  <div class="section-title">
+    <div><h2>💼 Sök jobb</h2><p class="muted">Prata med assistenten eller sök själv. Du väljer jobb, område och anställningsform.</p></div>
+    <button id="refreshJobs" class="small secondary">🔄 Uppdatera</button>
+  </div>
+  <div class="job-search-panel">
+    <h3 class="subheading">🤖 Smart jobbsökning</h3>
+    <p class="muted">Säg till exempel: <strong>”Sök lagerarbete i Stockholm, heltid.”</strong> Jag hämtar aktuella jobb, filtrerar dem och rangordnar dem mot ditt CV.</p>
+    <div class="buttons"><button id="smartSearchCv" class="primary">💼 Sök jobb åt mig</button></div>
+  </div>
+  <div class="job-search-panel manual-search">
+    <h3 class="subheading">🔎 Sök själv</h3>
+    <label>Vilket jobb vill du söka?
+      <input id="jobSearch" placeholder="t.ex. lagerarbetare, butik, chaufför, elektriker…">
+    </label>
+    <div class="filter-grid">
+      <label>Område
+        <input id="jobLocationText" placeholder="Hela Sverige, Stockholm, Solna, Uppsala, Skåne…">
+      </label>
+      <label>Snabbval område
+        <select id="jobLocation">
+          <option value="ALL">Hela Sverige</option><option value="Stockholm">Stockholm</option><option value="Uppsala">Uppsala</option><option value="Västra Götaland">Västra Götaland</option><option value="Skåne">Skåne</option><option value="Östergötland">Östergötland</option><option value="Jönköping">Jönköping</option><option value="Örebro">Örebro</option><option value="Västmanland">Västmanland</option><option value="Gävleborg">Gävleborg</option><option value="Norrbotten">Norrbotten</option><option value="Västerbotten">Västerbotten</option><option value="Södermanland">Södermanland</option><option value="Halland">Halland</option><option value="Kalmar">Kalmar</option><option value="Kronoberg">Kronoberg</option><option value="Blekinge">Blekinge</option><option value="Värmland">Värmland</option><option value="Dalarna">Dalarna</option><option value="Jämtland">Jämtland</option><option value="Gotland">Gotland</option>
+        </select>
+      </label>
+      <label>Anställning
+        <select id="jobEmployment"><option value="ALL">Alla</option><option value="FULL">Heltid</option><option value="PART">Deltid</option><option value="PERM">Tillsvidare</option><option value="TEMP">Tidsbegränsad</option></select>
+      </label>
+      <label>Sortera
+        <select id="jobSort"><option value="MATCH">Bäst matchning</option><option value="NEW">Nyast</option><option value="DEADLINE">Senaste ansökningsdag</option></select>
+      </label>
+    </div>
+    <div class="buttons search-buttons">
+      <button id="searchJobs" class="primary">🔎 Sök jobb</button>
+      <button id="searchCvJobs" class="secondary">🧠 Sök enligt mitt CV</button>
+      <button id="showMoreJobs" class="secondary">➕ Visa fler</button>
+      <button id="clearJobSearch" class="secondary">🧹 Rensa</button>
+    </div>
+    <div class="direct-search-links">
+      <button id="jobGoogle" class="tiny secondary">🌐 Öppna Google Jobs</button>
+      <button id="jobIndeed" class="tiny secondary">Indeed</button>
+      <button id="jobLinkedin" class="tiny secondary">LinkedIn</button>
+    </div>
+    <p class="muted small-help">Du kan antingen säga <strong>”Sök lagerjobb i Stockholm, heltid”</strong> så söker assistenten åt dig, eller fylla i fälten själv och trycka <strong>Sök jobb</strong>. Google Jobs öppnas bara när du väljer knappen.</p>
+    <div id="jobSearchStatus" class="muted">Skriv själv eller använd assistenten ovan.</div>
+  </div>
+  <div id="selectedJobBox" class="result selected-job-box">Inget jobb valt ännu.</div>
+  <div id="jobSummary" class="muted">Inga jobb hämtade ännu.</div>
+  <div id="jobResults" class="job-results"></div>
+</section>
+
+<section class="card profile-card" id="profile">
+  <h2>👤 Min profil</h2>
+  <p class="muted">Här sparar du dina riktiga personuppgifter som assistenten använder när CV, brev och ansökan förbereds.</p>
+  <div class="profile-name-box profile-summary">
+    <div><strong>Fullständigt namn</strong><span id="profileFullNamePreview">Saidkhan Safizadah</span></div>
+    <div><strong>Personnummer</strong><span id="profilePersonalNumberPreview">20031114-2434</span></div>
+    <div><strong>Födelsedatum</strong><span id="profileBirthPreview">14 nov. 2003</span></div>
+  </div>
+  <div class="grid">
+    <label>Förnamn<input id="profileName" autocomplete="given-name" placeholder="Saidkhan"></label>
+    <label>Efternamn<input id="profileSurname" autocomplete="family-name" placeholder="Safizadah"></label>
+    <label>Personnummer<input id="profilePersonalNumber" inputmode="numeric" autocomplete="off" placeholder="YYYYMMDD-XXXX"></label>
+    <label>Födelsedatum<input id="birthDate" type="date"></label>
+    <label>Ort<input id="profileLocation" autocomplete="address-level2" placeholder="Upplands Väsby"></label>
+    <label>Adress<input id="profileAddress" autocomplete="street-address" placeholder="Din adress"></label>
+    <label>Önskad jobbtitel<input id="profileJob" placeholder="lagerarbetare, butik, elektriker…"></label>
+  </div>
+  <div class="buttons"><button id="saveProfile" class="primary">💾 Spara profil</button><button id="clearProfile" class="secondary">🧹 Rensa</button></div>
+  <p id="profileStatus" class="muted">Profilen sparas bara lokalt på telefonen.</p>
+</section>
+
+<section class="card cv-card" id="cv">
+  <div class="section-title">
+    <div><h2>📄 Mitt CV</h2><p class="muted">Lägg in CV:t en gång. Assistenten använder det vid jobbsökning.</p></div>
+    <button id="analyzeCv" class="small secondary">🧠 Analysera</button>
+  </div>
+  <input id="cvFile" type="file" accept=".txt,.md,.csv,.json,.html,.htm,.pdf,.docx">
+  <textarea id="cvText" rows="16" placeholder="Klistra in ditt CV här…"></textarea>
+  <div class="buttons">
+    <button id="saveCv" class="primary">💾 Spara CV</button>
+    <button id="cvPdf" class="secondary">📄 Skapa PDF</button>
+    <button id="downloadCv" class="secondary">⬇️ Ladda ner CV</button>
+  </div>
+  <div id="cvAnalysis" class="result"></div>
+</section>
+
+<section class="card letter-card" id="letter">
+  <div class="section-title">
+    <div><h2>✉️ Personligt brev</h2><p class="muted">Assistenten kan fylla jobbtitel och företag från valt jobb.</p></div>
+  </div>
+  <div class="grid">
+    <input id="letterJob" placeholder="Jobbtitel">
+    <input id="letterCompany" placeholder="Företag">
+  </div>
+  <textarea id="letterText" rows="14" placeholder="Personligt brev…"></textarea>
+  <div class="buttons">
+    <button id="saveLetter" class="primary">💾 Spara brev</button>
+    <button id="improveLetter" class="secondary">✨ Förbättra</button>
+    <button id="letterPdf" class="secondary">📄 Skapa PDF</button>
+  </div>
+  <div id="letterStatus" class="result"></div>
+</section>
+
+<section class="card image-card" id="images">
+  <div class="section-title"><div><h2>🖼️ Bildfrågor</h2><p class="muted">Skicka en bild med text eller frågor. Assistenten läser texten och visar den tydligt i chatten. Du kan sedan be den svara på frågorna.</p></div></div>
+  <input id="imageFile" type="file" accept="image/*" multiple>
+  <div class="buttons"><button id="analyzeImage" class="primary">🧠 Läs och analysera bild</button><button id="sendImageText" class="secondary">💬 Lägg texten i chatten</button></div>
+  <div id="imageStatus" class="muted">Ingen bild analyserad.</div>
+  <textarea id="imageText" rows="10" placeholder="Text som hittades i bilden…"></textarea>
+</section>
+
+<section class="card docs-card" id="documents">
+  <h2>📁 Dokument</h2>
+  <input id="documentFile" type="file" accept=".txt,.md,.csv,.json,.html,.htm,.xml,.rtf,.pdf,.docx">
+  <textarea id="documentText" rows="14" placeholder="Dokumentets text…"></textarea>
+  <div class="buttons">
+    <button id="openFile" class="primary">📂 Öppna</button>
+    <button id="saveText" class="secondary">💾 Spara text</button>
+    <button id="makePdf" class="secondary">📄 Skapa PDF</button>
+    <button id="saveEditedPdf" class="primary">💾 Spara redigerad PDF</button>
+    <button id="newDocument" class="secondary">🆕 Nytt dokument</button>
+    <button id="undoDocument" class="secondary">↩️ Ångra ändring</button>
+    <button id="readDoc" class="secondary">🔊 Läs upp</button>
+  </div>
+  <div id="docStatus" class="muted">Inget dokument öppnat.</div>
+</section>
+
+<footer>
+  <p>Said Assistant 3.0 Mobile V27.1 · Fristående klient · gratis · inga betalda AI-tjänster eller API-nycklar.</p>
+</footer>
+</main>
+<script src="app.js" defer></script>
+</body>
+</html>

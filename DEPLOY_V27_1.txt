@@ -1,0 +1,5 @@
+Said Assistant 3.0 Mobile V27.1 — GitHub Pages startup fix
+
+Upload the complete contents of MOBILE_PUBLISH to the repository root used by GitHub Pages.
+Keep index.html at the repository root. Do not add an extra folder level.
+This build intentionally does not register a new service worker. It clears stale registrations/cache once without a redirect loop. app.js is deferred so the page can render before the large runtime bundle starts.
